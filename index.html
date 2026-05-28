@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,65 +7,57 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --gold: #C9A84C;
-    --gold-light: #F0D98B;
-    --gold-dark: #8B6914;
-    --ink: #0D0D0D;
-    --ink-soft: #1A1A1A;
-    --ink-muted: #3D3D3D;
-    --slate: #6B6B6B;
-    --paper: #F9F6F0;
-    --paper-warm: #F2EDE3;
-    --paper-card: #FFFFFF;
-    --green: #1A6B3A;
-    --green-light: #E8F5EE;
-    --red: #8B1A1A;
-    --red-light: #F5E8E8;
-    --teal: #0F5F6B;
-    --teal-light: #E3F4F6;
-    --purple: #4A2A8B;
-    --purple-light: #EDE8F5;
-    --border: rgba(0,0,0,0.08);
-    --border-strong: rgba(0,0,0,0.15);
-    --radius: 16px;
-    --radius-sm: 8px;
-    --shadow: 0 2px 20px rgba(0,0,0,0.06);
-    --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
+    --gold: #C9A84C; --gold-light: #F0D98B; --gold-dark: #8B6914;
+    --ink: #0D0D0D; --ink-soft: #1A1A1A; --ink-muted: #3D3D3D; --slate: #6B6B6B;
+    --paper: #F9F6F0; --paper-warm: #F2EDE3; --paper-card: #FFFFFF;
+    --green: #1A6B3A; --green-light: #E8F5EE;
+    --red: #8B1A1A; --red-light: #F5E8E8;
+    --teal: #0F5F6B; --teal-light: #E3F4F6;
+    --purple: #4A2A8B; --purple-light: #EDE8F5;
+    --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.15);
+    --radius: 16px; --radius-sm: 8px;
+    --shadow: 0 2px 20px rgba(0,0,0,0.06); --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
   }
-
   body {
     font-family: 'Sora', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
+    background: var(--paper); color: var(--ink);
+    min-height: 100vh; overflow-x: hidden;
+    padding-bottom: 48px;
   }
+  body.rtl { direction: rtl; }
+  body.rtl .nav-logo, body.rtl h1, body.rtl h2, body.rtl h3,
+  body.rtl p, body.rtl a, body.rtl span, body.rtl div, body.rtl li {
+    font-family: 'Sora', sans-serif;
+  }
+
+  /* CREDIT BAR - always visible at top */
+  .credit-bar {
+    background: var(--ink); color: rgba(255,255,255,0.7);
+    text-align: center; font-size: 0.72rem; font-weight: 500;
+    padding: 0.45rem 1rem; letter-spacing: 0.04em;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .credit-bar .credit-name { color: var(--gold-light); font-weight: 600; }
+  .credit-bar .credit-dot { color: rgba(255,255,255,0.3); }
 
   /* NAV */
   nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(249,246,240,0.92);
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(249,246,240,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
     display: flex; align-items: center; justify-content: space-between;
     height: 64px;
   }
-  .nav-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-  }
+  .nav-left { display: flex; align-items: center; gap: 2rem; }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em; }
   .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2rem; }
-  .nav-links a {
-    font-size: 0.85rem; font-weight: 500; color: var(--slate);
-    text-decoration: none; transition: color 0.2s;
-  }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--slate); text-decoration: none; transition: color 0.2s; cursor: pointer; }
   .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
   .nav-cta {
     background: var(--ink); color: var(--paper);
     border: none; border-radius: 100px;
@@ -74,10 +66,113 @@
   }
   .nav-cta:hover { background: var(--ink-muted); }
 
+  /* SETTINGS BUTTON */
+  .settings-btn {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--paper-warm); border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.05rem; transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .settings-btn:hover { background: var(--paper-card); border-color: var(--gold); }
+
+  /* SETTINGS PANEL OVERLAY */
+  .settings-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .settings-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* SETTINGS DRAWER */
+  .settings-drawer {
+    position: fixed; top: 0; right: -380px; bottom: 0; z-index: 1000;
+    width: 340px; background: var(--paper-card);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+    transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  body.rtl .settings-drawer { right: auto; left: -380px; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); }
+  body.rtl .settings-drawer.open { left: 0; right: auto; }
+  .settings-drawer.open { right: 0; }
+
+  .settings-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; background: var(--paper-card); z-index: 1;
+  }
+  .settings-header h2 { font-size: 1.05rem; font-weight: 600; color: var(--ink); }
+  .settings-close {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--paper-warm); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; color: var(--slate);
+    transition: all 0.2s;
+  }
+  .settings-close:hover { background: var(--ink); color: white; }
+
+  .settings-body { padding: 1.5rem; flex: 1; }
+  .settings-section { margin-bottom: 2rem; }
+  .settings-section-label {
+    font-size: 0.68rem; font-weight: 700; color: var(--slate);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  /* LANGUAGE TOGGLE */
+  .lang-toggle {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px; background: var(--paper-warm);
+    border-radius: 12px; padding: 5px;
+    border: 1px solid var(--border);
+  }
+  .lang-btn {
+    padding: 0.6rem; border-radius: 8px;
+    border: none; background: transparent;
+    font-family: 'Sora', sans-serif; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; color: var(--slate);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .lang-btn.active { background: var(--ink); color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .lang-btn:not(.active):hover { background: var(--paper-card); color: var(--ink); }
+  .lang-flag { font-size: 1.1rem; }
+
+  .settings-info-box {
+    background: var(--paper-warm); border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem; font-size: 0.78rem; color: var(--slate); line-height: 1.6;
+    border: 1px solid var(--border);
+  }
+  .settings-info-box strong { color: var(--ink); }
+
+  .settings-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  .settings-about {
+    background: var(--ink); border-radius: var(--radius-sm);
+    padding: 1.25rem; text-align: center;
+  }
+  .settings-about .about-logo { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .settings-about p { font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .settings-about .made-by { color: rgba(255,255,255,0.8); margin-top: 0.5rem; font-size: 0.78rem; }
+  .settings-about .made-by span { color: var(--gold-light); font-weight: 600; }
+
+  /* MADE BY BADGE - fixed bottom */
+  .made-by-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: rgba(13,13,13,0.97); backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 0.55rem 2rem;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 0.72rem; color: rgba(255,255,255,0.55);
+  }
+  .made-by-bar .mbb-heart { color: #E07070; font-size: 0.75rem; }
+  .made-by-bar .mbb-name { color: var(--gold-light); font-weight: 700; letter-spacing: 0.02em; }
+  .made-by-bar .mbb-sep { color: rgba(255,255,255,0.2); }
+
   /* HERO */
   .hero {
-    padding: 5rem 2rem 3rem;
-    max-width: 1100px; margin: 0 auto;
+    padding: 5rem 2rem 3rem; max-width: 1100px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
   }
   .hero-eyebrow {
@@ -85,21 +180,16 @@
     background: var(--paper-warm); border: 1px solid var(--border-strong);
     border-radius: 100px; padding: 0.35rem 1rem;
     font-size: 0.75rem; font-weight: 600; color: var(--gold-dark);
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 1.5rem;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem;
   }
   .hero-eyebrow::before { content: '✦'; color: var(--gold); }
   .hero h1 {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(2.5rem, 5vw, 3.8rem);
-    line-height: 1.1; letter-spacing: -0.03em;
-    color: var(--ink); margin-bottom: 1.25rem;
+    line-height: 1.1; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 1.25rem;
   }
   .hero h1 em { font-style: italic; color: var(--gold-dark); }
-  .hero p {
-    font-size: 1rem; line-height: 1.75; color: var(--slate);
-    margin-bottom: 2rem; max-width: 440px;
-  }
+  .hero p { font-size: 1rem; line-height: 1.75; color: var(--slate); margin-bottom: 2rem; max-width: 440px; }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     background: var(--ink); color: var(--paper);
@@ -119,26 +209,17 @@
 
   /* HERO VISUAL */
   .hero-visual {
-    position: relative;
     background: var(--paper-card); border-radius: 24px;
-    border: 1px solid var(--border); padding: 1.5rem;
-    box-shadow: var(--shadow);
+    border: 1px solid var(--border); padding: 1.5rem; box-shadow: var(--shadow);
   }
-  .hero-card-title {
-    font-size: 0.75rem; font-weight: 600; color: var(--slate);
-    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.25rem;
-  }
-  .mini-chart { height: 80px; position: relative; margin-bottom: 1.25rem; }
+  .hero-card-title { font-size: 0.75rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.25rem; }
+  .mini-chart { height: 80px; margin-bottom: 1.25rem; }
   .mini-chart svg { width: 100%; height: 100%; }
   .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
-  .stat-mini {
-    background: var(--paper-warm); border-radius: var(--radius-sm);
-    padding: 0.65rem 0.75rem;
-  }
+  .stat-mini { background: var(--paper-warm); border-radius: var(--radius-sm); padding: 0.65rem 0.75rem; }
   .stat-mini .label { font-size: 0.7rem; color: var(--slate); margin-bottom: 2px; }
   .stat-mini .value { font-size: 1rem; font-weight: 600; color: var(--ink); }
   .stat-mini .value.green { color: var(--green); }
-  .stat-mini .value.red { color: var(--red); }
   .term-chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .term-chip {
     background: var(--paper-warm); border: 1px solid var(--border);
@@ -149,65 +230,34 @@
   .term-chip:hover { background: var(--ink); color: white; border-color: var(--ink); }
 
   /* STATS BAR */
-  .stats-bar {
-    background: var(--ink); color: var(--paper);
-    padding: 1.5rem 2rem;
-  }
-  .stats-bar-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1rem; text-align: center;
-  }
-  .stat-bar-item .num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem; color: var(--gold-light);
-  }
+  .stats-bar { background: var(--ink); color: var(--paper); padding: 1.5rem 2rem; }
+  .stats-bar-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
+  .stat-bar-item .num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--gold-light); }
   .stat-bar-item .desc { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
 
-  /* SECTION */
+  /* SECTIONS */
   section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-size: 0.75rem; font-weight: 600; color: var(--gold-dark);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.15;
-    letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.75rem;
-  }
+  .section-label { font-size: 0.75rem; font-weight: 600; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.75rem; }
   .section-sub { font-size: 0.95rem; color: var(--slate); line-height: 1.7; max-width: 520px; }
 
   /* CATEGORIES */
-  .categories-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem; margin-top: 2.5rem;
-  }
+  .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
   .cat-card {
     background: var(--paper-card); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 1.5rem;
-    cursor: pointer; transition: all 0.25s;
-    position: relative; overflow: hidden;
+    cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden;
   }
-  .cat-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, transparent 60%, rgba(201,168,76,0.06));
-    pointer-events: none;
-  }
+  .cat-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(201,168,76,0.06)); pointer-events: none; }
   .cat-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: var(--gold); }
   .cat-card:hover .cat-arrow { opacity: 1; transform: translateX(0); }
-  .cat-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.25rem; margin-bottom: 1rem;
-  }
+  .cat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
   .cat-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
   .cat-card p { font-size: 0.78rem; color: var(--slate); line-height: 1.6; }
   .cat-lessons { font-size: 0.72rem; color: var(--slate); margin-top: 1rem; }
-  .cat-arrow {
-    position: absolute; top: 1.25rem; right: 1.25rem;
-    opacity: 0; transform: translateX(-6px);
-    transition: all 0.2s; font-size: 1rem; color: var(--gold-dark);
-  }
+  .cat-arrow { position: absolute; top: 1.25rem; right: 1.25rem; opacity: 0; transform: translateX(-6px); transition: all 0.2s; font-size: 1rem; color: var(--gold-dark); }
+  body.rtl .cat-arrow { right: auto; left: 1.25rem; transform: translateX(6px); }
+  body.rtl .cat-card:hover .cat-arrow { transform: translateX(0); }
 
   /* LESSONS */
   .lessons-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; margin-top: 2.5rem; align-items: start; }
@@ -224,107 +274,79 @@
   .lesson-nav-item .lesson-num {
     width: 22px; height: 22px; border-radius: 6px;
     background: rgba(255,255,255,0.15); display: flex;
-    align-items: center; justify-content: center;
-    font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+    align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
   }
   .lesson-nav-item:not(.active) .lesson-num { background: var(--paper-warm); color: var(--slate); }
 
   .lesson-panel { display: none; }
   .lesson-panel.active {
-    display: block;
-    background: var(--paper-card); border-radius: var(--radius);
-    border: 1px solid var(--border); padding: 2rem;
-    animation: fadeUp 0.3s ease;
+    display: block; background: var(--paper-card); border-radius: var(--radius);
+    border: 1px solid var(--border); padding: 2rem; animation: fadeUp 0.3s ease;
   }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
   .lesson-badge {
     display: inline-block; background: var(--paper-warm); border: 1px solid var(--border);
     border-radius: 100px; padding: 0.25rem 0.75rem;
     font-size: 0.7rem; font-weight: 600; color: var(--gold-dark);
     text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem;
   }
-  .lesson-panel h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.8rem; color: var(--ink); margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-  }
+  .lesson-panel h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
   .lesson-panel .lesson-subtitle { font-size: 0.9rem; color: var(--slate); margin-bottom: 1.75rem; }
   .lesson-panel .lesson-body { font-size: 0.9rem; line-height: 1.8; color: var(--ink-muted); }
   .lesson-panel .lesson-body p { margin-bottom: 1rem; }
 
   .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
-  .glossary-item {
-    background: var(--paper-warm); border-radius: var(--radius-sm);
-    padding: 0.85rem 1rem;
-  }
+  .glossary-item { background: var(--paper-warm); border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
   .glossary-item .heb { font-size: 0.75rem; color: var(--slate); direction: rtl; }
   .glossary-item .eng { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
   .glossary-item .def { font-size: 0.78rem; color: var(--slate); margin-top: 4px; line-height: 1.5; }
 
   .tip-box {
     background: #FFFBEF; border: 1px solid #E8D47A; border-radius: var(--radius-sm);
-    padding: 1rem 1.25rem; margin: 1.5rem 0;
-    display: flex; gap: 0.75rem; align-items: flex-start;
+    padding: 1rem 1.25rem; margin: 1.5rem 0; display: flex; gap: 0.75rem; align-items: flex-start;
   }
   .tip-box .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
   .tip-box p { font-size: 0.83rem; color: #7A5C00; line-height: 1.65; }
 
-  .risk-meter {
-    background: var(--paper-warm); border-radius: var(--radius-sm);
-    padding: 1.25rem; margin: 1.5rem 0;
-  }
+  .risk-meter { background: var(--paper-warm); border-radius: var(--radius-sm); padding: 1.25rem; margin: 1.5rem 0; }
   .risk-meter .label { font-size: 0.78rem; font-weight: 600; color: var(--slate); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
   .risk-bar-wrap { background: var(--border); border-radius: 100px; height: 8px; margin-bottom: 0.5rem; overflow: hidden; }
-  .risk-bar { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+  .risk-bar { height: 100%; border-radius: 100px; }
   .risk-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--slate); }
 
-  /* GLOSSARY SECTION */
+  /* GLOSSARY */
   .glossary-search {
     display: flex; gap: 1rem; align-items: center;
     background: var(--paper-card); border: 1px solid var(--border);
     border-radius: 100px; padding: 0.5rem 1rem;
     margin: 2rem 0 1.5rem; max-width: 400px;
   }
-  .glossary-search input {
-    border: none; background: transparent; font-family: 'Sora', sans-serif;
-    font-size: 0.9rem; color: var(--ink); outline: none; flex: 1;
-  }
-  .glossary-search input::placeholder { color: var(--slate); }
-  .glossary-search span { font-size: 1rem; color: var(--slate); }
-
+  .glossary-search input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 0.9rem; color: var(--ink); outline: none; flex: 1; }
   .full-glossary { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-  .glos-card {
-    background: var(--paper-card); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 1rem 1.25rem;
-    transition: all 0.2s;
-  }
+  .glos-card { background: var(--paper-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; transition: all 0.2s; }
   .glos-card:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
   .glos-card .heb-term { font-size: 0.78rem; color: var(--slate); direction: rtl; font-weight: 500; margin-bottom: 2px; }
   .glos-card .eng-term { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
   .glos-card .definition { font-size: 0.78rem; color: var(--slate); line-height: 1.6; }
-  .glos-card .category-tag {
-    display: inline-block; margin-top: 0.5rem;
-    background: var(--paper-warm); border-radius: 100px;
-    padding: 0.2rem 0.6rem; font-size: 0.65rem; font-weight: 600;
-    color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em;
-  }
+  .glos-card .category-tag { display: inline-block; margin-top: 0.5rem; background: var(--paper-warm); border-radius: 100px; padding: 0.2rem 0.6rem; font-size: 0.65rem; font-weight: 600; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; }
   .glos-card.hidden { display: none; }
 
   /* FOOTER */
-  footer {
-    background: var(--ink); color: white;
-    padding: 3rem 2rem; margin-top: 4rem;
-  }
+  footer { background: var(--ink); color: white; padding: 3rem 2rem; }
   .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
   .footer-brand .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--gold-light); margin-bottom: 0.75rem; }
   .footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
   .footer-col h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
-  .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.7); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.7); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; cursor: pointer; }
   .footer-col a:hover { color: white; }
   .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.75rem; color: rgba(255,255,255,0.35); }
 
-  /* MOBILE */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  .tag { display: inline-block; border-radius: 100px; padding: 0.25rem 0.75rem; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tag.beginner { background: var(--green-light); color: var(--green); }
+  .tag.advanced { background: var(--purple-light); color: var(--purple); }
+  .tag.tips { background: #FFFBEF; color: #7A5C00; }
+
   @media (max-width: 768px) {
     nav { padding: 0 1rem; }
     .nav-links { display: none; }
@@ -337,72 +359,109 @@
     .glossary-grid { grid-template-columns: 1fr; }
     .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
     .footer-bottom { flex-direction: column; gap: 0.5rem; }
+    .settings-drawer { width: 100%; right: -100%; }
+    body.rtl .settings-drawer { left: -100%; }
   }
-
-  /* UTILS */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-  .tag {
-    display: inline-block; border-radius: 100px;
-    padding: 0.25rem 0.75rem; font-size: 0.72rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .tag.beginner { background: var(--green-light); color: var(--green); }
-  .tag.advanced { background: var(--purple-light); color: var(--purple); }
-  .tag.tips { background: #FFFBEF; color: #7A5C00; }
 </style>
 </head>
 <body>
 
+<!-- CREDIT TOP BAR -->
+<div class="credit-bar">
+  <span data-t="madeWith">Made with</span>
+  <span class="mbb-heart">♥</span>
+  <span data-t="madeBy">by</span>
+  <span class="credit-name">Yhonatan Akiva</span>
+  <span class="credit-dot">·</span>
+  <span style="color:var(--gold-light);font-weight:600">InvestIQ</span>
+</div>
+
+<!-- SETTINGS OVERLAY -->
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+
+<!-- SETTINGS DRAWER -->
+<div class="settings-drawer" id="settingsDrawer">
+  <div class="settings-header">
+    <h2 data-t="settingsTitle">⚙️ Settings</h2>
+    <div class="settings-close" onclick="closeSettings()">✕</div>
+  </div>
+  <div class="settings-body">
+
+    <div class="settings-section">
+      <div class="settings-section-label" data-t="languageLabel">Language / שפה</div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnEn" onclick="setLang('en')">
+          <span class="lang-flag">🇺🇸</span> English
+        </button>
+        <button class="lang-btn" id="btnHe" onclick="setLang('he')">
+          <span class="lang-flag">🇮🇱</span> עברית
+        </button>
+      </div>
+      <div class="settings-info-box" style="margin-top:0.75rem">
+        <span data-t="langInfo">Switch the entire app between <strong>English</strong> and <strong>Hebrew (עברית)</strong>. All content, menus, and lessons will update instantly.</span>
+      </div>
+    </div>
+
+    <hr class="settings-divider">
+
+    <div class="settings-section">
+      <div class="settings-section-label" data-t="aboutLabel">About</div>
+      <div class="settings-about">
+        <div class="about-logo">InvestIQ</div>
+        <p data-t="aboutDesc">Financial Education For Beginners. Free, clear, and designed for everyone.</p>
+        <p class="made-by" data-t="madeByFull">Made with ♥ by <span>Yhonatan Akiva</span></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Invest<span>IQ</span></div>
-  <div class="nav-links">
-    <a href="#categories">Categories</a>
-    <a href="#lessons">Lessons</a>
-    <a href="#glossary">Glossary</a>
-    <a href="#tips">Tips</a>
+  <div class="nav-left">
+    <div class="nav-logo">Invest<span>IQ</span></div>
+    <div class="nav-links">
+      <a onclick="scrollTo('categories')" data-t="navCategories">Categories</a>
+      <a onclick="scrollTo('lessons')" data-t="navLessons">Lessons</a>
+      <a onclick="scrollTo('glossary')" data-t="navGlossary">Glossary</a>
+      <a onclick="scrollTo('tips')" data-t="navTips">Tips</a>
+    </div>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('lessons').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+  <div class="nav-right">
+    <div class="settings-btn" onclick="openSettings()" title="Settings">⚙️</div>
+    <button class="nav-cta" onclick="scrollTo('lessons')" data-t="navCta">Start Learning →</button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div>
-    <div class="hero-eyebrow">Financial Education For Beginners</div>
-    <h1>Learn How <em>Investing</em> Works</h1>
-    <p>Start your investing journey with clear, simple explanations. From stocks and bonds to ETFs and compound interest — build smart money skills step by step.</p>
+    <div class="hero-eyebrow" data-t="heroEyebrow">Financial Education For Beginners</div>
+    <h1 data-t="heroTitle">Learn How <em>Investing</em> Works</h1>
+    <p data-t="heroDesc">Start your investing journey with clear, simple explanations. From stocks and bonds to ETFs and compound interest — build smart money skills step by step.</p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('lessons').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
-      <button class="btn-secondary" onclick="document.getElementById('glossary').scrollIntoView({behavior:'smooth'})">Browse Glossary</button>
+      <button class="btn-primary" onclick="scrollTo('lessons')" data-t="heroCta">Start Learning →</button>
+      <button class="btn-secondary" onclick="scrollTo('glossary')" data-t="heroSecondary">Browse Glossary</button>
     </div>
   </div>
-
   <div class="hero-visual">
-    <div class="hero-card-title">Portfolio Overview</div>
+    <div class="hero-card-title" data-t="portfolioOverview">Portfolio Overview</div>
     <div class="mini-chart">
       <svg viewBox="0 0 300 80" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/>
-            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="M0,60 L30,50 L60,55 L90,40 L120,42 L150,30 L180,25 L210,28 L240,15 L270,10 L300,8 L300,80 L0,80 Z" fill="url(#chartGrad)"/>
+        <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0,60 L30,50 L60,55 L90,40 L120,42 L150,30 L180,25 L210,28 L240,15 L270,10 L300,8 L300,80 L0,80 Z" fill="url(#cg)"/>
         <path d="M0,60 L30,50 L60,55 L90,40 L120,42 L150,30 L180,25 L210,28 L240,15 L270,10 L300,8" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="stats-row">
-      <div class="stat-mini"><div class="label">Return</div><div class="value green">+18.4%</div></div>
-      <div class="stat-mini"><div class="label">Risk</div><div class="value">Medium</div></div>
-      <div class="stat-mini"><div class="label">Assets</div><div class="value">12</div></div>
+      <div class="stat-mini"><div class="label" data-t="return">Return</div><div class="value green">+18.4%</div></div>
+      <div class="stat-mini"><div class="label" data-t="risk">Risk</div><div class="value" data-t="medium">Medium</div></div>
+      <div class="stat-mini"><div class="label" data-t="assets">Assets</div><div class="value">12</div></div>
     </div>
     <div class="term-chips">
-      <span class="term-chip">ETF</span>
-      <span class="term-chip">Dividend</span>
-      <span class="term-chip">Portfolio</span>
-      <span class="term-chip">Bonds</span>
-      <span class="term-chip">Stock</span>
-      <span class="term-chip">Crypto</span>
+      <span class="term-chip">ETF</span><span class="term-chip" data-t="chipDividend">Dividend</span>
+      <span class="term-chip" data-t="chipPortfolio">Portfolio</span><span class="term-chip" data-t="chipBonds">Bonds</span>
+      <span class="term-chip" data-t="chipStock">Stock</span><span class="term-chip" data-t="chipCrypto">Crypto</span>
     </div>
   </div>
 </div>
@@ -410,10 +469,10 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-bar-inner">
-    <div class="stat-bar-item"><div class="num">5</div><div class="desc">Chapters</div></div>
-    <div class="stat-bar-item"><div class="num">20+</div><div class="desc">Key Terms Explained</div></div>
-    <div class="stat-bar-item"><div class="num">4</div><div class="desc">Investment Types</div></div>
-    <div class="stat-bar-item"><div class="num">Free</div><div class="desc">Always & Forever</div></div>
+    <div class="stat-bar-item"><div class="num">5</div><div class="desc" data-t="statChapters">Chapters</div></div>
+    <div class="stat-bar-item"><div class="num">20+</div><div class="desc" data-t="statTerms">Key Terms Explained</div></div>
+    <div class="stat-bar-item"><div class="num">4</div><div class="desc" data-t="statTypes">Investment Types</div></div>
+    <div class="stat-bar-item"><div class="num" data-t="statFreeNum">Free</div><div class="desc" data-t="statFreeDesc">Always & Forever</div></div>
   </div>
 </div>
 
@@ -421,45 +480,39 @@
 
 <!-- CATEGORIES -->
 <section id="categories">
-  <div class="section-label">Categories</div>
-  <div class="section-title">Build Your Knowledge,<br>Step By Step</div>
-  <div class="section-sub">Every investor starts somewhere. Choose a category to explore, from the very basics to advanced strategies.</div>
-
+  <div class="section-label" data-t="catLabel">Categories</div>
+  <div class="section-title" data-t="catTitle">Build Your Knowledge,<br>Step By Step</div>
+  <div class="section-sub" data-t="catSub">Every investor starts somewhere. Choose a category to explore, from the very basics to advanced strategies.</div>
   <div class="categories-grid">
     <div class="cat-card" onclick="goToLesson(0)">
-      <div class="cat-icon" style="background:#FEF9E7;">💡</div>
-      <span class="cat-arrow">→</span>
-      <h3>Basics</h3>
-      <p>Core vocabulary every investor must know — stocks, markets, profit & loss.</p>
-      <div class="cat-lessons">4 lessons · <span class="tag beginner">Beginners</span></div>
+      <div class="cat-icon" style="background:#FEF9E7;">💡</div><span class="cat-arrow">→</span>
+      <h3 data-t="cat1Title">Basics</h3>
+      <p data-t="cat1Desc">Core vocabulary every investor must know — stocks, markets, profit & loss.</p>
+      <div class="cat-lessons"><span data-t="cat1Lessons">4 lessons</span> · <span class="tag beginner" data-t="tagBeginner">Beginners</span></div>
     </div>
     <div class="cat-card" onclick="goToLesson(1)">
-      <div class="cat-icon" style="background:#E8F5EE;">📈</div>
-      <span class="cat-arrow">→</span>
-      <h3>Smart Investing</h3>
-      <p>Understand risk, diversification, and how to build a smart portfolio.</p>
-      <div class="cat-lessons">3 lessons · <span class="tag beginner">Beginners</span></div>
+      <div class="cat-icon" style="background:#E8F5EE;">📈</div><span class="cat-arrow">→</span>
+      <h3 data-t="cat2Title">Smart Investing</h3>
+      <p data-t="cat2Desc">Understand risk, diversification, and how to build a smart portfolio.</p>
+      <div class="cat-lessons"><span data-t="cat2Lessons">3 lessons</span> · <span class="tag beginner" data-t="tagBeginner2">Beginners</span></div>
     </div>
     <div class="cat-card" onclick="goToLesson(2)">
-      <div class="cat-icon" style="background:#EDE8F5;">🏦</div>
-      <span class="cat-arrow">→</span>
-      <h3>Market Types</h3>
-      <p>ETFs, Bonds, Real Estate and Crypto — all the ways you can invest.</p>
-      <div class="cat-lessons">4 lessons · <span class="tag beginner">Beginners</span></div>
+      <div class="cat-icon" style="background:#EDE8F5;">🏦</div><span class="cat-arrow">→</span>
+      <h3 data-t="cat3Title">Market Types</h3>
+      <p data-t="cat3Desc">ETFs, Bonds, Real Estate and Crypto — all the ways you can invest.</p>
+      <div class="cat-lessons"><span data-t="cat3Lessons">4 lessons</span> · <span class="tag beginner" data-t="tagBeginner3">Beginners</span></div>
     </div>
     <div class="cat-card" onclick="goToLesson(3)">
-      <div class="cat-icon" style="background:#E3F4F6;">🔬</div>
-      <span class="cat-arrow">→</span>
-      <h3>Advanced Investing</h3>
-      <p>Compound interest, technical & fundamental analysis, market cap.</p>
-      <div class="cat-lessons">4 lessons · <span class="tag advanced">Advanced</span></div>
+      <div class="cat-icon" style="background:#E3F4F6;">🔬</div><span class="cat-arrow">→</span>
+      <h3 data-t="cat4Title">Advanced Investing</h3>
+      <p data-t="cat4Desc">Compound interest, technical & fundamental analysis, market cap.</p>
+      <div class="cat-lessons"><span data-t="cat4Lessons">4 lessons</span> · <span class="tag advanced" data-t="tagAdvanced">Advanced</span></div>
     </div>
     <div class="cat-card" onclick="goToLesson(4)">
-      <div class="cat-icon" style="background:#FFFBEF;">💎</div>
-      <span class="cat-arrow">→</span>
-      <h3>Investing Strategies</h3>
-      <p>Practical tips and strategies to invest with confidence and clarity.</p>
-      <div class="cat-lessons">Tips & guide · <span class="tag tips">Tips</span></div>
+      <div class="cat-icon" style="background:#FFFBEF;">💎</div><span class="cat-arrow">→</span>
+      <h3 data-t="cat5Title">Investing Strategies</h3>
+      <p data-t="cat5Desc">Practical tips and strategies to invest with confidence and clarity.</p>
+      <div class="cat-lessons"><span data-t="cat5Lessons">Tips & guide</span> · <span class="tag tips" data-t="tagTips">Tips</span></div>
     </div>
   </div>
 </section>
@@ -468,222 +521,131 @@
 
 <!-- LESSONS -->
 <section id="lessons">
-  <div class="section-label">Chapters / Lessons</div>
-  <div class="section-title">Open A Lesson</div>
-  <div class="section-sub">Each lesson explains one key concept clearly. Start from the beginning or jump to what interests you.</div>
-
+  <div class="section-label" data-t="lessonsLabel">Chapters / Lessons</div>
+  <div class="section-title" data-t="lessonsTitle">Open A Lesson</div>
+  <div class="section-sub" data-t="lessonsSub">Each lesson explains one key concept clearly. Start from the beginning or jump to what interests you.</div>
   <div class="lessons-layout">
-    <!-- Sidebar nav -->
     <div class="lesson-nav">
-      <div class="lesson-nav-item active" onclick="showLesson(0)"><span class="lesson-num">1</span>What Is Investing?</div>
-      <div class="lesson-nav-item" onclick="showLesson(1)"><span class="lesson-num">2</span>Risk & Diversification</div>
-      <div class="lesson-nav-item" onclick="showLesson(2)"><span class="lesson-num">3</span>Types of Investments</div>
-      <div class="lesson-nav-item" onclick="showLesson(3)"><span class="lesson-num">4</span>Advanced Concepts</div>
-      <div class="lesson-nav-item" onclick="showLesson(4)"><span class="lesson-num">5</span>Tips & Guide</div>
+      <div class="lesson-nav-item active" onclick="showLesson(0)"><span class="lesson-num">1</span><span data-t="ln1">What Is Investing?</span></div>
+      <div class="lesson-nav-item" onclick="showLesson(1)"><span class="lesson-num">2</span><span data-t="ln2">Risk & Diversification</span></div>
+      <div class="lesson-nav-item" onclick="showLesson(2)"><span class="lesson-num">3</span><span data-t="ln3">Types of Investments</span></div>
+      <div class="lesson-nav-item" onclick="showLesson(3)"><span class="lesson-num">4</span><span data-t="ln4">Advanced Concepts</span></div>
+      <div class="lesson-nav-item" onclick="showLesson(4)"><span class="lesson-num">5</span><span data-t="ln5">Tips & Guide</span></div>
     </div>
-
-    <!-- Lesson panels -->
     <div>
 
       <!-- LESSON 1 -->
       <div class="lesson-panel active" id="lesson-0">
-        <span class="lesson-badge">Beginners · Chapter 1</span>
-        <h2>What Is Investing?</h2>
-        <p class="lesson-subtitle">The essential vocabulary every investor needs to know.</p>
+        <span class="lesson-badge" data-t="l1badge">Beginners · Chapter 1</span>
+        <h2 data-t="l1title">What Is Investing?</h2>
+        <p class="lesson-subtitle" data-t="l1sub">The essential vocabulary every investor needs to know.</p>
         <div class="lesson-body">
-          <p><strong>Investing (השקעות)</strong> means putting your money into something with the expectation it will grow over time. Instead of leaving cash sitting idle, investors put it to work in markets, businesses, or assets.</p>
-          <p>The person who invests money is called an <strong>Investor (משקיע)</strong>. When you invest, you expect to receive a <strong>Return (תשואה)</strong> — the percentage gain or income your investment earns.</p>
-          <p>Investing often happens through the <strong>Stock Market / Bourse (בורסה)</strong>, a marketplace where buyers and sellers trade financial assets. The most famous is the New York Stock Exchange (NYSE).</p>
-
+          <p data-t="l1p1"><strong>Investing (השקעות)</strong> means putting your money into something with the expectation it will grow over time. Instead of leaving cash sitting idle, investors put it to work in markets, businesses, or assets.</p>
+          <p data-t="l1p2">The person who invests money is called an <strong>Investor (משקיע)</strong>. When you invest, you expect to receive a <strong>Return (תשואה)</strong> — the percentage gain or income your investment earns.</p>
+          <p data-t="l1p3">Investing often happens through the <strong>Stock Market / Bourse (בורסה)</strong>, a marketplace where buyers and sellers trade financial assets. The most famous is the New York Stock Exchange (NYSE).</p>
           <div class="glossary-grid">
-            <div class="glossary-item">
-              <div class="heb">מניה</div>
-              <div class="eng">Stock / Share</div>
-              <div class="def">A small ownership piece of a company. If the company grows, your stock rises in value.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">תיק השקעות</div>
-              <div class="eng">Portfolio</div>
-              <div class="def">Your entire collection of investments — stocks, bonds, real estate, and more.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">רווח</div>
-              <div class="eng">Profit</div>
-              <div class="def">Money earned when your investment grows in value or pays income.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">הפסד</div>
-              <div class="eng">Loss</div>
-              <div class="def">Money lost when your investment falls in value below what you paid.</div>
-            </div>
+            <div class="glossary-item"><div class="heb">מניה</div><div class="eng" data-t="g1e">Stock / Share</div><div class="def" data-t="g1d">A small ownership piece of a company. If the company grows, your stock rises in value.</div></div>
+            <div class="glossary-item"><div class="heb">תיק השקעות</div><div class="eng" data-t="g2e">Portfolio</div><div class="def" data-t="g2d">Your entire collection of investments — stocks, bonds, real estate, and more.</div></div>
+            <div class="glossary-item"><div class="heb">רווח</div><div class="eng" data-t="g3e">Profit</div><div class="def" data-t="g3d">Money earned when your investment grows in value or pays income.</div></div>
+            <div class="glossary-item"><div class="heb">הפסד</div><div class="eng" data-t="g4e">Loss</div><div class="def" data-t="g4d">Money lost when your investment falls in value below what you paid.</div></div>
           </div>
-
-          <div class="tip-box">
-            <div class="tip-icon">💡</div>
-            <p><strong>Beginner tip:</strong> You don't need thousands of dollars to start investing. Many platforms allow you to start with as little as $1–10 in fractional shares.</p>
-          </div>
+          <div class="tip-box"><div class="tip-icon">💡</div><p data-t="l1tip"><strong>Beginner tip:</strong> You don't need thousands of dollars to start investing. Many platforms allow you to start with as little as $1–10 in fractional shares.</p></div>
         </div>
       </div>
 
       <!-- LESSON 2 -->
       <div class="lesson-panel" id="lesson-1">
-        <span class="lesson-badge">Beginners · Chapter 2</span>
-        <h2>Risk & Diversification</h2>
-        <p class="lesson-subtitle">Understanding how to manage risk in your portfolio.</p>
+        <span class="lesson-badge" data-t="l2badge">Beginners · Chapter 2</span>
+        <h2 data-t="l2title">Risk & Diversification</h2>
+        <p class="lesson-subtitle" data-t="l2sub">Understanding how to manage risk in your portfolio.</p>
         <div class="lesson-body">
-          <p><strong>Risk (סיכון)</strong> is the possibility that your investment will lose value. All investments carry some level of risk. The key insight: <em>higher potential return usually means higher risk</em>.</p>
-          <p><strong>Volatility (תנודתיות)</strong> measures how much an asset's price swings up and down. A volatile investment might jump 20% one month and drop 15% the next. Stable investments like government bonds have low volatility.</p>
-          <p>The smartest way to manage risk is through <strong>Diversification (פיזור סיכונים)</strong> — spreading your money across different types of investments so that if one drops, others may hold steady or rise.</p>
-
+          <p data-t="l2p1"><strong>Risk (סיכון)</strong> is the possibility that your investment will lose value. All investments carry some level of risk. The key insight: <em>higher potential return usually means higher risk</em>.</p>
+          <p data-t="l2p2"><strong>Volatility (תנודתיות)</strong> measures how much an asset's price swings up and down. A volatile investment might jump 20% one month and drop 15% the next. Stable investments like government bonds have low volatility.</p>
+          <p data-t="l2p3">The smartest way to manage risk is through <strong>Diversification (פיזור סיכונים)</strong> — spreading your money across different types of investments so that if one drops, others may hold steady or rise.</p>
           <div class="risk-meter">
-            <div class="label">Risk levels by investment type</div>
-            <div style="margin-bottom:1rem">
-              <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span>Government Bonds</span><span style="color:var(--green)">Low</span></div>
-              <div class="risk-bar-wrap"><div class="risk-bar" style="width:20%;background:var(--green)"></div></div>
-            </div>
-            <div style="margin-bottom:1rem">
-              <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span>Large Company Stocks (ETF)</span><span style="color:#7A5C00">Medium</span></div>
-              <div class="risk-bar-wrap"><div class="risk-bar" style="width:50%;background:var(--gold)"></div></div>
-            </div>
-            <div style="margin-bottom:1rem">
-              <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span>Individual Stocks</span><span style="color:#8B5A00">Medium-High</span></div>
-              <div class="risk-bar-wrap"><div class="risk-bar" style="width:70%;background:#E09020"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span>Cryptocurrency</span><span style="color:var(--red)">Very High</span></div>
-              <div class="risk-bar-wrap"><div class="risk-bar" style="width:95%;background:var(--red)"></div></div>
-            </div>
+            <div class="label" data-t="riskLabel">Risk levels by investment type</div>
+            <div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span data-t="riskBonds">Government Bonds</span><span style="color:var(--green)" data-t="riskLow">Low</span></div><div class="risk-bar-wrap"><div class="risk-bar" style="width:20%;background:var(--green)"></div></div></div>
+            <div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span data-t="riskETF">Large Company Stocks (ETF)</span><span style="color:#7A5C00" data-t="riskMed">Medium</span></div><div class="risk-bar-wrap"><div class="risk-bar" style="width:50%;background:var(--gold)"></div></div></div>
+            <div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span data-t="riskStocks">Individual Stocks</span><span style="color:#8B5A00" data-t="riskMedHigh">Medium-High</span></div><div class="risk-bar-wrap"><div class="risk-bar" style="width:70%;background:#E09020"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;color:var(--ink-muted)"><span data-t="riskCrypto">Cryptocurrency</span><span style="color:var(--red)" data-t="riskHigh">Very High</span></div><div class="risk-bar-wrap"><div class="risk-bar" style="width:95%;background:var(--red)"></div></div></div>
           </div>
-
-          <div class="tip-box">
-            <div class="tip-icon">⚠️</div>
-            <p>Never invest money you cannot afford to lose. Markets go up <em>and</em> down. A diversified portfolio helps protect you from any single bad investment wiping you out.</p>
-          </div>
+          <div class="tip-box"><div class="tip-icon">⚠️</div><p data-t="l2tip">Never invest money you cannot afford to lose. Markets go up and down. A diversified portfolio helps protect you from any single bad investment wiping you out.</p></div>
         </div>
       </div>
 
       <!-- LESSON 3 -->
       <div class="lesson-panel" id="lesson-2">
-        <span class="lesson-badge">Beginners · Chapter 3</span>
-        <h2>Types of Investments</h2>
-        <p class="lesson-subtitle">The main asset classes every investor should understand.</p>
+        <span class="lesson-badge" data-t="l3badge">Beginners · Chapter 3</span>
+        <h2 data-t="l3title">Types of Investments</h2>
+        <p class="lesson-subtitle" data-t="l3sub">The main asset classes every investor should understand.</p>
         <div class="lesson-body">
-          <p>There are four main types of investments. Each has different risk levels, returns, and purpose in a portfolio.</p>
-
+          <p data-t="l3p1">There are four main types of investments. Each has different risk levels, returns, and purpose in a portfolio.</p>
           <div class="glossary-grid">
-            <div class="glossary-item">
-              <div class="heb">קרן סל</div>
-              <div class="eng">ETF</div>
-              <div class="def">Exchange Traded Fund — a basket of stocks you can buy like a single share. Great for beginners since it gives instant diversification.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">אג״ח</div>
-              <div class="eng">Bonds</div>
-              <div class="def">A loan you give to a company or government. They pay you interest over time. Lower risk than stocks, lower return.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">נדל״ן</div>
-              <div class="eng">Real Estate</div>
-              <div class="def">Owning property to earn rental income or profit from rising prices. Can also invest via REITs (real estate funds) on the stock market.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">מטבעות דיגיטליים</div>
-              <div class="eng">Cryptocurrency</div>
-              <div class="def">Digital currencies like Bitcoin and Ethereum. Very high risk and volatility, but some investors allocate a small portion here.</div>
-            </div>
+            <div class="glossary-item"><div class="heb">קרן סל</div><div class="eng">ETF</div><div class="def" data-t="g5d">Exchange Traded Fund — a basket of stocks you can buy like a single share. Great for beginners since it gives instant diversification.</div></div>
+            <div class="glossary-item"><div class="heb">אג״ח</div><div class="eng" data-t="g6e">Bonds</div><div class="def" data-t="g6d">A loan you give to a company or government. They pay you interest over time. Lower risk than stocks, lower return.</div></div>
+            <div class="glossary-item"><div class="heb">נדל״ן</div><div class="eng" data-t="g7e">Real Estate</div><div class="def" data-t="g7d">Owning property to earn rental income or profit from rising prices. Can also invest via REITs on the stock market.</div></div>
+            <div class="glossary-item"><div class="heb">מטבעות דיגיטליים</div><div class="eng" data-t="g8e">Cryptocurrency</div><div class="def" data-t="g8d">Digital currencies like Bitcoin and Ethereum. Very high risk and volatility, but some investors allocate a small portion here.</div></div>
           </div>
-
-          <p>A smart portfolio often <em>combines</em> several of these types. For example: 60% ETFs, 30% bonds, 10% real estate. This classic approach balances growth with stability.</p>
-
-          <div class="tip-box">
-            <div class="tip-icon">💡</div>
-            <p>ETFs are widely considered the best starting point for beginner investors. They're low-cost, diversified, and require no expertise in picking individual stocks.</p>
-          </div>
+          <p data-t="l3p2">A smart portfolio often <em>combines</em> several of these types. For example: 60% ETFs, 30% bonds, 10% real estate. This classic approach balances growth with stability.</p>
+          <div class="tip-box"><div class="tip-icon">💡</div><p data-t="l3tip">ETFs are widely considered the best starting point for beginner investors. They're low-cost, diversified, and require no expertise in picking individual stocks.</p></div>
         </div>
       </div>
 
       <!-- LESSON 4 -->
       <div class="lesson-panel" id="lesson-3">
-        <span class="lesson-badge">Advanced · Chapter 4</span>
-        <h2>Advanced Concepts</h2>
-        <p class="lesson-subtitle">The concepts that separate good investors from great ones.</p>
+        <span class="lesson-badge" data-t="l4badge">Advanced · Chapter 4</span>
+        <h2 data-t="l4title">Advanced Concepts</h2>
+        <p class="lesson-subtitle" data-t="l4sub">The concepts that separate good investors from great ones.</p>
         <div class="lesson-body">
-          <p><strong>Compound Interest (ריבית דריבית)</strong> is the most powerful force in investing. You earn interest on your original money — and then interest on the interest you already earned. Over decades, this creates exponential growth.</p>
-
+          <p data-t="l4p1"><strong>Compound Interest (ריבית דריבית)</strong> is the most powerful force in investing. You earn interest on your original money — and then interest on the interest you already earned. Over decades, this creates exponential growth.</p>
           <div style="background:var(--paper-warm);border-radius:var(--radius-sm);padding:1.25rem;margin:1.25rem 0">
-            <div style="font-size:0.78rem;font-weight:600;color:var(--slate);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem">Compound Interest Example</div>
+            <div style="font-size:0.78rem;font-weight:600;color:var(--slate);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem" data-t="compoundTitle">Compound Interest Example</div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;text-align:center">
-              <div><div style="font-size:0.75rem;color:var(--slate)">After 10 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$1,629</div><div style="font-size:0.7rem;color:var(--slate)">on $1,000 @ 5%</div></div>
-              <div><div style="font-size:0.75rem;color:var(--slate)">After 20 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$2,653</div><div style="font-size:0.7rem;color:var(--slate)">on $1,000 @ 5%</div></div>
-              <div><div style="font-size:0.75rem;color:var(--slate)">After 40 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$7,040</div><div style="font-size:0.7rem;color:var(--slate)">on $1,000 @ 5%</div></div>
+              <div><div style="font-size:0.75rem;color:var(--slate)" data-t="after10">After 10 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$1,629</div><div style="font-size:0.7rem;color:var(--slate)" data-t="on1000">on $1,000 @ 5%</div></div>
+              <div><div style="font-size:0.75rem;color:var(--slate)" data-t="after20">After 20 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$2,653</div><div style="font-size:0.7rem;color:var(--slate)" data-t="on1000b">on $1,000 @ 5%</div></div>
+              <div><div style="font-size:0.75rem;color:var(--slate)" data-t="after40">After 40 years</div><div style="font-size:1.4rem;font-weight:700;color:var(--green)">$7,040</div><div style="font-size:0.7rem;color:var(--slate)" data-t="on1000c">on $1,000 @ 5%</div></div>
             </div>
           </div>
-
           <div class="glossary-grid">
-            <div class="glossary-item">
-              <div class="heb">ניתוח טכני</div>
-              <div class="eng">Technical Analysis</div>
-              <div class="def">Studying price charts and patterns to predict future price movements. Used by traders.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">ניתוח פונדמנטלי</div>
-              <div class="eng">Fundamental Analysis</div>
-              <div class="def">Evaluating a company's real value — profits, debt, growth — to decide if it's a good investment.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">שווי שוק</div>
-              <div class="eng">Market Cap</div>
-              <div class="def">Total value of a company's shares. Price per share × number of shares = market capitalization.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">דיבידנד</div>
-              <div class="eng">Dividend</div>
-              <div class="def">Cash paid to shareholders from a company's profits. Some investors live off dividend income.</div>
-            </div>
-            <div class="glossary-item">
-              <div class="heb">אינפלציה</div>
-              <div class="eng">Inflation</div>
-              <div class="def">The rising cost of goods over time. Your money loses purchasing power. Investing helps beat inflation.</div>
-            </div>
+            <div class="glossary-item"><div class="heb">ניתוח טכני</div><div class="eng" data-t="g9e">Technical Analysis</div><div class="def" data-t="g9d">Studying price charts and patterns to predict future price movements. Used by traders.</div></div>
+            <div class="glossary-item"><div class="heb">ניתוח פונדמנטלי</div><div class="eng" data-t="g10e">Fundamental Analysis</div><div class="def" data-t="g10d">Evaluating a company's real value — profits, debt, growth — to decide if it's a good investment.</div></div>
+            <div class="glossary-item"><div class="heb">שווי שוק</div><div class="eng" data-t="g11e">Market Cap</div><div class="def" data-t="g11d">Total value of a company's shares. Price per share × number of shares = market capitalization.</div></div>
+            <div class="glossary-item"><div class="heb">דיבידנד</div><div class="eng" data-t="g12e">Dividend</div><div class="def" data-t="g12d">Cash paid to shareholders from a company's profits. Some investors live off dividend income.</div></div>
+            <div class="glossary-item"><div class="heb">אינפלציה</div><div class="eng" data-t="g13e">Inflation</div><div class="def" data-t="g13d">The rising cost of goods over time. Your money loses purchasing power. Investing helps beat inflation.</div></div>
           </div>
         </div>
       </div>
 
       <!-- LESSON 5 -->
       <div class="lesson-panel" id="lesson-4">
-        <span class="lesson-badge">Tips & Guide · Chapter 5</span>
-        <h2>Investing Strategies</h2>
-        <p class="lesson-subtitle">Practical principles every investor should follow.</p>
+        <span class="lesson-badge" data-t="l5badge">Tips & Guide · Chapter 5</span>
+        <h2 data-t="l5title">Investing Strategies</h2>
+        <p class="lesson-subtitle" data-t="l5sub">Practical principles every investor should follow.</p>
         <div class="lesson-body">
-          <p>Here are the time-tested principles that guide successful investors — regardless of whether you're just starting out or have years of experience.</p>
-
+          <p data-t="l5p1">Here are the time-tested principles that guide successful investors — regardless of whether you're just starting out or have years of experience.</p>
           <div style="display:flex;flex-direction:column;gap:1rem;margin:1.5rem 0">
             <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper-card);border:1px solid var(--border);border-radius:var(--radius-sm)">
               <div style="width:36px;height:36px;border-radius:10px;background:#E8F5EE;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem">🎯</div>
-              <div><strong style="font-size:0.9rem">Start Early</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6">Time is your greatest advantage. Due to compound interest, ₪1,000 invested at age 25 is worth far more than ₪2,000 invested at age 45.</p></div>
+              <div><strong style="font-size:0.9rem" data-t="tip1Title">Start Early</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6" data-t="tip1Desc">Time is your greatest advantage. Due to compound interest, ₪1,000 invested at age 25 is worth far more than ₪2,000 invested at age 45.</p></div>
             </div>
             <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper-card);border:1px solid var(--border);border-radius:var(--radius-sm)">
               <div style="width:36px;height:36px;border-radius:10px;background:#EDE8F5;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem">📊</div>
-              <div><strong style="font-size:0.9rem">Diversify</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6">Never put all your money in one stock or one sector. Spread across different assets, industries, and geographies.</p></div>
+              <div><strong style="font-size:0.9rem" data-t="tip2Title">Diversify</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6" data-t="tip2Desc">Never put all your money in one stock or one sector. Spread across different assets, industries, and geographies.</p></div>
             </div>
             <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper-card);border:1px solid var(--border);border-radius:var(--radius-sm)">
               <div style="width:36px;height:36px;border-radius:10px;background:#FFFBEF;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem">📅</div>
-              <div><strong style="font-size:0.9rem">Invest Regularly</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6">Use Dollar-Cost Averaging — invest a fixed amount every month regardless of price. This reduces the impact of market volatility.</p></div>
+              <div><strong style="font-size:0.9rem" data-t="tip3Title">Invest Regularly</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6" data-t="tip3Desc">Use Dollar-Cost Averaging — invest a fixed amount every month regardless of price. This reduces the impact of market volatility.</p></div>
             </div>
             <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper-card);border:1px solid var(--border);border-radius:var(--radius-sm)">
               <div style="width:36px;height:36px;border-radius:10px;background:#E3F4F6;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem">🧘</div>
-              <div><strong style="font-size:0.9rem">Stay Calm</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6">Markets drop. It's normal. The biggest mistake beginners make is panic-selling during downturns. Long-term investors who stay the course win.</p></div>
+              <div><strong style="font-size:0.9rem" data-t="tip4Title">Stay Calm</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6" data-t="tip4Desc">Markets drop. It's normal. The biggest mistake beginners make is panic-selling during downturns. Long-term investors who stay the course win.</p></div>
             </div>
             <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--paper-card);border:1px solid var(--border);border-radius:var(--radius-sm)">
               <div style="width:36px;height:36px;border-radius:10px;background:var(--paper-warm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem">📚</div>
-              <div><strong style="font-size:0.9rem">Keep Learning</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6">The more you understand investing, the better decisions you make. Keep reading, learning, and refining your strategy over time.</p></div>
+              <div><strong style="font-size:0.9rem" data-t="tip5Title">Keep Learning</strong><p style="font-size:0.82rem;color:var(--slate);margin-top:4px;line-height:1.6" data-t="tip5Desc">The more you understand investing, the better decisions you make. Keep reading, learning, and refining your strategy over time.</p></div>
             </div>
           </div>
-
-          <div class="tip-box">
-            <div class="tip-icon">✨</div>
-            <p><strong>The best investment you can make</strong> is in your own financial education. The knowledge you build here will compound just as powerfully as your money.</p>
-          </div>
+          <div class="tip-box"><div class="tip-icon">✨</div><p data-t="l5tip"><strong>The best investment you can make</strong> is in your own financial education. The knowledge you build here will compound just as powerfully as your money.</p></div>
         </div>
       </div>
 
@@ -695,28 +657,25 @@
 
 <!-- GLOSSARY -->
 <section id="glossary" style="padding-bottom:2rem">
-  <div class="section-label">Full Glossary</div>
-  <div class="section-title">Every Term, Explained</div>
-  <div class="section-sub">Search any investing term in English or Hebrew.</div>
-
+  <div class="section-label" data-t="glossLabel">Full Glossary</div>
+  <div class="section-title" data-t="glossTitle">Every Term, Explained</div>
+  <div class="section-sub" data-t="glossSub">Search any investing term in English or Hebrew.</div>
   <div class="glossary-search">
     <span>🔍</span>
-    <input type="text" placeholder="Search terms… e.g. ETF, מניה, risk" id="glossarySearch" oninput="filterGlossary(this.value)">
+    <input type="text" id="glossarySearch" oninput="filterGlossary(this.value)" data-placeholder-en="Search terms… e.g. ETF, מניה, risk" data-placeholder-he="חיפוש מונחים… לדוגמה: ETF, מניה, סיכון">
   </div>
-
-  <div class="full-glossary" id="glossaryGrid">
-  </div>
+  <div class="full-glossary" id="glossaryGrid"></div>
 </section>
 
-<!-- TIPS SECTION -->
+<!-- CTA -->
 <section id="tips" style="padding-top:2rem">
   <div style="background:var(--ink);border-radius:24px;padding:3rem;text-align:center;color:white">
-    <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-light);margin-bottom:1rem">Your Journey Starts Now</div>
-    <h2 style="font-family:'DM Serif Display',serif;font-size:2.2rem;color:white;margin-bottom:1rem;letter-spacing:-0.02em">Understand Stocks & Money</h2>
-    <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);max-width:460px;margin:0 auto 2rem;line-height:1.7">Financial education is the foundation of every successful investor. You now have the vocabulary. Build on it every day.</p>
+    <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-light);margin-bottom:1rem" data-t="ctaEyebrow">Your Journey Starts Now</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:2.2rem;color:white;margin-bottom:1rem;letter-spacing:-0.02em" data-t="ctaTitle">Understand Stocks & Money</h2>
+    <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);max-width:460px;margin:0 auto 2rem;line-height:1.7" data-t="ctaDesc">Financial education is the foundation of every successful investor. You now have the vocabulary. Build on it every day.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <button class="btn-primary" style="background:var(--gold);color:var(--ink);border-color:var(--gold)" onclick="document.getElementById('lessons').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
-      <button class="btn-secondary" style="color:white;border-color:rgba(255,255,255,0.3)" onclick="document.getElementById('glossary').scrollIntoView({behavior:'smooth'})">Browse Glossary</button>
+      <button class="btn-primary" style="background:var(--gold);color:var(--ink);border-color:var(--gold)" onclick="scrollTo('lessons')" data-t="ctaBtn1">Start Learning →</button>
+      <button class="btn-secondary" style="color:white;border-color:rgba(255,255,255,0.3)" onclick="scrollTo('glossary')" data-t="ctaBtn2">Browse Glossary</button>
     </div>
   </div>
 </section>
@@ -726,95 +685,312 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="logo">InvestIQ</div>
-      <p>Financial Education For Beginners. Learn investing step by step — from stocks and ETFs to compound interest and market strategy.</p>
+      <p data-t="footerDesc">Financial Education For Beginners. Learn investing step by step — from stocks and ETFs to compound interest and market strategy.</p>
+      <p style="margin-top:0.75rem;font-size:0.78rem;color:rgba(255,255,255,0.4)" data-t="footerCredit">Made with ♥ by <span style="color:var(--gold-light);font-weight:600">Yhonatan Akiva</span></p>
     </div>
     <div class="footer-col">
-      <h4>Lessons</h4>
-      <a href="#" onclick="goToLesson(0)">What Is Investing?</a>
-      <a href="#" onclick="goToLesson(1)">Risk & Diversification</a>
-      <a href="#" onclick="goToLesson(2)">Types of Investments</a>
-      <a href="#" onclick="goToLesson(3)">Advanced Concepts</a>
-      <a href="#" onclick="goToLesson(4)">Strategies & Tips</a>
+      <h4 data-t="footerLessons">Lessons</h4>
+      <a onclick="goToLesson(0)" data-t="ln1">What Is Investing?</a>
+      <a onclick="goToLesson(1)" data-t="ln2">Risk & Diversification</a>
+      <a onclick="goToLesson(2)" data-t="ln3">Types of Investments</a>
+      <a onclick="goToLesson(3)" data-t="ln4">Advanced Concepts</a>
+      <a onclick="goToLesson(4)" data-t="ln5">Tips & Guide</a>
     </div>
     <div class="footer-col">
-      <h4>Categories</h4>
-      <a href="#">Basics</a>
-      <a href="#">Smart Investing</a>
-      <a href="#">Market Types</a>
-      <a href="#">Advanced Investing</a>
-      <a href="#">Beginner Lessons</a>
+      <h4 data-t="footerCat">Categories</h4>
+      <a data-t="cat1Title">Basics</a>
+      <a data-t="cat2Title">Smart Investing</a>
+      <a data-t="cat3Title">Market Types</a>
+      <a data-t="cat4Title">Advanced Investing</a>
+      <a data-t="cat5Title">Investing Strategies</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 InvestIQ · Financial Education For All</span>
-    <span>Build Smart Money Skills</span>
+    <span data-t="footerCopy">© 2025 InvestIQ · Financial Education For All</span>
+    <span data-t="footerTagline">Build Smart Money Skills</span>
   </div>
 </footer>
 
+<!-- ALWAYS-VISIBLE MADE BY BAR -->
+<div class="made-by-bar">
+  <span data-t="madeWith">Made with</span>
+  <span class="mbb-heart">♥</span>
+  <span data-t="madeBy">by</span>
+  <strong class="mbb-name">Yhonatan Akiva</strong>
+  <span class="mbb-sep">·</span>
+  <span style="color:var(--gold-light)">InvestIQ</span>
+  <span class="mbb-sep">·</span>
+  <span data-t="statFreeDesc" style="color:rgba(255,255,255,0.4)">Always & Forever</span>
+</div>
+
 <script>
-  // ---- Glossary data ----
-  const glossaryData = [
-    { heb: 'השקעות', eng: 'Investing', def: 'Putting money to work in assets or markets with the expectation of earning a return over time.', cat: 'Basics' },
-    { heb: 'משקיע', eng: 'Investor', def: 'A person who puts money into financial assets hoping to earn a profit.', cat: 'Basics' },
-    { heb: 'מניה', eng: 'Stock / Share', def: 'A unit of ownership in a company. Stockholders share in the company\'s profits and losses.', cat: 'Basics' },
-    { heb: 'בורסה', eng: 'Stock Market', def: 'An organized marketplace where stocks, bonds, and other securities are bought and sold.', cat: 'Basics' },
-    { heb: 'תיק השקעות', eng: 'Portfolio', def: 'The full collection of investments owned by an individual — stocks, bonds, real estate, crypto, etc.', cat: 'Basics' },
-    { heb: 'רווח', eng: 'Profit', def: 'Money earned when an investment grows in value or generates income above its cost.', cat: 'Basics' },
-    { heb: 'הפסד', eng: 'Loss', def: 'Money lost when an investment falls below the price you paid for it.', cat: 'Basics' },
-    { heb: 'תשואה', eng: 'Return', def: 'The percentage gain or income earned from an investment over a period.', cat: 'Basics' },
-    { heb: 'סיכון', eng: 'Risk', def: 'The possibility that an investment will lose value. Higher risk often comes with higher potential reward.', cat: 'Smart Investing' },
-    { heb: 'פיזור סיכונים', eng: 'Diversification', def: 'Spreading investments across different asset types to reduce the impact of any single bad investment.', cat: 'Smart Investing' },
-    { heb: 'תנודתיות', eng: 'Volatility', def: 'How much an asset\'s price swings up and down. High volatility = more risk and more potential gain.', cat: 'Smart Investing' },
-    { heb: 'קרן סל', eng: 'ETF', def: 'Exchange Traded Fund. A basket of stocks traded as one asset. Great for easy diversification.', cat: 'Market Types' },
-    { heb: 'אג״ח', eng: 'Bonds', def: 'Loans to companies or governments that pay interest. Generally lower risk than stocks.', cat: 'Market Types' },
-    { heb: 'נדל״ן', eng: 'Real Estate', def: 'Property investment — physical buildings or via funds (REITs). Generates rental income or appreciation.', cat: 'Market Types' },
-    { heb: 'מטבעות דיגיטליים', eng: 'Cryptocurrency', def: 'Digital assets like Bitcoin and Ethereum. Very high volatility and risk — speculative investment.', cat: 'Market Types' },
-    { heb: 'ריבית דריבית', eng: 'Compound Interest', def: 'Earning interest on your interest. Over time, creates exponential growth — the most powerful force in investing.', cat: 'Advanced' },
-    { heb: 'ניתוח טכני', eng: 'Technical Analysis', def: 'Analyzing price charts and patterns to predict future market movements. Used primarily by traders.', cat: 'Advanced' },
-    { heb: 'ניתוח פונדמנטלי', eng: 'Fundamental Analysis', def: 'Evaluating a company\'s true value by studying its financials, profits, growth, and business model.', cat: 'Advanced' },
-    { heb: 'אינפלציה', eng: 'Inflation', def: 'The gradual rise in prices over time. Investing helps protect your money from losing purchasing power.', cat: 'Advanced' },
-    { heb: 'שווי שוק', eng: 'Market Cap', def: 'Total value of a company\'s shares (price × number of shares). Used to compare company sizes.', cat: 'Advanced' },
-    { heb: 'דיבידנד', eng: 'Dividend', def: 'Cash payments from a company to its shareholders, typically from its profits. Passive income for investors.', cat: 'Advanced' },
-  ];
-
-  function buildGlossary() {
-    const grid = document.getElementById('glossaryGrid');
-    grid.innerHTML = glossaryData.map((item, i) => `
-      <div class="glos-card" id="gc-${i}">
-        <div class="heb-term">${item.heb}</div>
-        <div class="eng-term">${item.eng}</div>
-        <div class="definition">${item.def}</div>
-        <div class="category-tag">${item.cat}</div>
-      </div>
-    `).join('');
+// ============================================================
+// TRANSLATIONS
+// ============================================================
+const T = {
+  en: {
+    madeWith: 'Made with', madeBy: 'by',
+    settingsTitle: '⚙️ Settings',
+    languageLabel: 'Language / שפה',
+    langInfo: 'Switch the entire app between <strong>English</strong> and <strong>Hebrew (עברית)</strong>. All content, menus, and lessons will update instantly.',
+    aboutLabel: 'About',
+    aboutDesc: 'Financial Education For Beginners. Free, clear, and designed for everyone.',
+    madeByFull: 'Made with ♥ by <span>Yhonatan Akiva</span>',
+    navCategories: 'Categories', navLessons: 'Lessons', navGlossary: 'Glossary', navTips: 'Tips',
+    navCta: 'Start Learning →',
+    heroEyebrow: 'Financial Education For Beginners',
+    heroTitle: 'Learn How <em>Investing</em> Works',
+    heroDesc: 'Start your investing journey with clear, simple explanations. From stocks and bonds to ETFs and compound interest — build smart money skills step by step.',
+    heroCta: 'Start Learning →', heroSecondary: 'Browse Glossary',
+    portfolioOverview: 'Portfolio Overview',
+    return: 'Return', risk: 'Risk', medium: 'Medium', assets: 'Assets',
+    chipDividend: 'Dividend', chipPortfolio: 'Portfolio', chipBonds: 'Bonds', chipStock: 'Stock', chipCrypto: 'Crypto',
+    statChapters: 'Chapters', statTerms: 'Key Terms Explained', statTypes: 'Investment Types',
+    statFreeNum: 'Free', statFreeDesc: 'Always & Forever',
+    catLabel: 'Categories', catTitle: 'Build Your Knowledge,<br>Step By Step',
+    catSub: 'Every investor starts somewhere. Choose a category to explore, from the very basics to advanced strategies.',
+    cat1Title: 'Basics', cat1Desc: 'Core vocabulary every investor must know — stocks, markets, profit & loss.', cat1Lessons: '4 lessons',
+    cat2Title: 'Smart Investing', cat2Desc: 'Understand risk, diversification, and how to build a smart portfolio.', cat2Lessons: '3 lessons',
+    cat3Title: 'Market Types', cat3Desc: 'ETFs, Bonds, Real Estate and Crypto — all the ways you can invest.', cat3Lessons: '4 lessons',
+    cat4Title: 'Advanced Investing', cat4Desc: 'Compound interest, technical & fundamental analysis, market cap.', cat4Lessons: '4 lessons',
+    cat5Title: 'Investing Strategies', cat5Desc: 'Practical tips and strategies to invest with confidence and clarity.', cat5Lessons: 'Tips & guide',
+    tagBeginner: 'Beginners', tagBeginner2: 'Beginners', tagBeginner3: 'Beginners', tagAdvanced: 'Advanced', tagTips: 'Tips',
+    lessonsLabel: 'Chapters / Lessons', lessonsTitle: 'Open A Lesson',
+    lessonsSub: 'Each lesson explains one key concept clearly. Start from the beginning or jump to what interests you.',
+    ln1: 'What Is Investing?', ln2: 'Risk & Diversification', ln3: 'Types of Investments', ln4: 'Advanced Concepts', ln5: 'Tips & Guide',
+    l1badge: 'Beginners · Chapter 1', l1title: 'What Is Investing?', l1sub: 'The essential vocabulary every investor needs to know.',
+    l1p1: '<strong>Investing (השקעות)</strong> means putting your money into something with the expectation it will grow over time. Instead of leaving cash sitting idle, investors put it to work in markets, businesses, or assets.',
+    l1p2: 'The person who invests money is called an <strong>Investor (משקיע)</strong>. When you invest, you expect to receive a <strong>Return (תשואה)</strong> — the percentage gain or income your investment earns.',
+    l1p3: 'Investing often happens through the <strong>Stock Market / Bourse (בורסה)</strong>, a marketplace where buyers and sellers trade financial assets. The most famous is the New York Stock Exchange (NYSE).',
+    g1e: 'Stock / Share', g1d: 'A small ownership piece of a company. If the company grows, your stock rises in value.',
+    g2e: 'Portfolio', g2d: 'Your entire collection of investments — stocks, bonds, real estate, and more.',
+    g3e: 'Profit', g3d: 'Money earned when your investment grows in value or pays income.',
+    g4e: 'Loss', g4d: 'Money lost when your investment falls in value below what you paid.',
+    l1tip: '<strong>Beginner tip:</strong> You don\'t need thousands of dollars to start investing. Many platforms allow you to start with as little as $1–10 in fractional shares.',
+    l2badge: 'Beginners · Chapter 2', l2title: 'Risk & Diversification', l2sub: 'Understanding how to manage risk in your portfolio.',
+    l2p1: '<strong>Risk (סיכון)</strong> is the possibility that your investment will lose value. All investments carry some level of risk. The key insight: <em>higher potential return usually means higher risk</em>.',
+    l2p2: '<strong>Volatility (תנודתיות)</strong> measures how much an asset\'s price swings up and down. A volatile investment might jump 20% one month and drop 15% the next. Stable investments like government bonds have low volatility.',
+    l2p3: 'The smartest way to manage risk is through <strong>Diversification (פיזור סיכונים)</strong> — spreading your money across different types of investments so that if one drops, others may hold steady or rise.',
+    riskLabel: 'Risk levels by investment type',
+    riskBonds: 'Government Bonds', riskLow: 'Low', riskETF: 'Large Company Stocks (ETF)', riskMed: 'Medium',
+    riskStocks: 'Individual Stocks', riskMedHigh: 'Medium-High', riskCrypto: 'Cryptocurrency', riskHigh: 'Very High',
+    l2tip: 'Never invest money you cannot afford to lose. Markets go up and down. A diversified portfolio helps protect you from any single bad investment wiping you out.',
+    l3badge: 'Beginners · Chapter 3', l3title: 'Types of Investments', l3sub: 'The main asset classes every investor should understand.',
+    l3p1: 'There are four main types of investments. Each has different risk levels, returns, and purpose in a portfolio.',
+    g5d: 'Exchange Traded Fund — a basket of stocks you can buy like a single share. Great for beginners since it gives instant diversification.',
+    g6e: 'Bonds', g6d: 'A loan you give to a company or government. They pay you interest over time. Lower risk than stocks, lower return.',
+    g7e: 'Real Estate', g7d: 'Owning property to earn rental income or profit from rising prices. Can also invest via REITs on the stock market.',
+    g8e: 'Cryptocurrency', g8d: 'Digital currencies like Bitcoin and Ethereum. Very high risk and volatility, but some investors allocate a small portion here.',
+    l3p2: 'A smart portfolio often <em>combines</em> several of these types. For example: 60% ETFs, 30% bonds, 10% real estate. This classic approach balances growth with stability.',
+    l3tip: 'ETFs are widely considered the best starting point for beginner investors. They\'re low-cost, diversified, and require no expertise in picking individual stocks.',
+    l4badge: 'Advanced · Chapter 4', l4title: 'Advanced Concepts', l4sub: 'The concepts that separate good investors from great ones.',
+    l4p1: '<strong>Compound Interest (ריבית דריבית)</strong> is the most powerful force in investing. You earn interest on your original money — and then interest on the interest you already earned. Over decades, this creates exponential growth.',
+    compoundTitle: 'Compound Interest Example',
+    after10: 'After 10 years', after20: 'After 20 years', after40: 'After 40 years',
+    on1000: 'on $1,000 @ 5%', on1000b: 'on $1,000 @ 5%', on1000c: 'on $1,000 @ 5%',
+    g9e: 'Technical Analysis', g9d: 'Studying price charts and patterns to predict future price movements. Used by traders.',
+    g10e: 'Fundamental Analysis', g10d: 'Evaluating a company\'s real value — profits, debt, growth — to decide if it\'s a good investment.',
+    g11e: 'Market Cap', g11d: 'Total value of a company\'s shares. Price per share × number of shares = market capitalization.',
+    g12e: 'Dividend', g12d: 'Cash paid to shareholders from a company\'s profits. Some investors live off dividend income.',
+    g13e: 'Inflation', g13d: 'The rising cost of goods over time. Your money loses purchasing power. Investing helps beat inflation.',
+    l5badge: 'Tips & Guide · Chapter 5', l5title: 'Investing Strategies', l5sub: 'Practical principles every investor should follow.',
+    l5p1: 'Here are the time-tested principles that guide successful investors — regardless of whether you\'re just starting out or have years of experience.',
+    tip1Title: 'Start Early', tip1Desc: 'Time is your greatest advantage. Due to compound interest, ₪1,000 invested at age 25 is worth far more than ₪2,000 invested at age 45.',
+    tip2Title: 'Diversify', tip2Desc: 'Never put all your money in one stock or one sector. Spread across different assets, industries, and geographies.',
+    tip3Title: 'Invest Regularly', tip3Desc: 'Use Dollar-Cost Averaging — invest a fixed amount every month regardless of price. This reduces the impact of market volatility.',
+    tip4Title: 'Stay Calm', tip4Desc: 'Markets drop. It\'s normal. The biggest mistake beginners make is panic-selling during downturns. Long-term investors who stay the course win.',
+    tip5Title: 'Keep Learning', tip5Desc: 'The more you understand investing, the better decisions you make. Keep reading, learning, and refining your strategy over time.',
+    l5tip: '<strong>The best investment you can make</strong> is in your own financial education. The knowledge you build here will compound just as powerfully as your money.',
+    glossLabel: 'Full Glossary', glossTitle: 'Every Term, Explained', glossSub: 'Search any investing term in English or Hebrew.',
+    ctaEyebrow: 'Your Journey Starts Now', ctaTitle: 'Understand Stocks & Money',
+    ctaDesc: 'Financial education is the foundation of every successful investor. You now have the vocabulary. Build on it every day.',
+    ctaBtn1: 'Start Learning →', ctaBtn2: 'Browse Glossary',
+    footerDesc: 'Financial Education For Beginners. Learn investing step by step — from stocks and ETFs to compound interest and market strategy.',
+    footerCredit: 'Made with ♥ by <span style="color:var(--gold-light);font-weight:600">Yhonatan Akiva</span>',
+    footerLessons: 'Lessons', footerCat: 'Categories',
+    footerCopy: '© 2025 InvestIQ · Financial Education For All', footerTagline: 'Build Smart Money Skills',
+  },
+  he: {
+    madeWith: 'נעשה באהבה', madeBy: 'על ידי',
+    settingsTitle: '⚙️ הגדרות',
+    languageLabel: 'שפה / Language',
+    langInfo: 'החלף את כל האפליקציה בין <strong>אנגלית</strong> ל<strong>עברית</strong>. כל התוכן, התפריטים והשיעורים יתעדכנו מיד.',
+    aboutLabel: 'אודות',
+    aboutDesc: 'חינוך פיננסי למתחילים. חינמי, ברור, ומיועד לכולם.',
+    madeByFull: 'נעשה באהבה ♥ על ידי <span>יהונתן עקיבא</span>',
+    navCategories: 'קטגוריות', navLessons: 'שיעורים', navGlossary: 'מילון', navTips: 'טיפים',
+    navCta: 'התחל ללמוד ←',
+    heroEyebrow: 'חינוך פיננסי למתחילים',
+    heroTitle: 'למד איך <em>השקעות</em> עובדות',
+    heroDesc: 'התחל את מסע ההשקעות שלך עם הסברים פשוטים וברורים. ממניות ואיגרות חוב ועד קרנות סל וריבית דריבית — בנה מיומנויות כסף חכמות, צעד אחר צעד.',
+    heroCta: 'התחל ללמוד ←', heroSecondary: 'עיון במילון',
+    portfolioOverview: 'סקירת תיק השקעות',
+    return: 'תשואה', risk: 'סיכון', medium: 'בינוני', assets: 'נכסים',
+    chipDividend: 'דיבידנד', chipPortfolio: 'תיק השקעות', chipBonds: 'אג״ח', chipStock: 'מניה', chipCrypto: 'קריפטו',
+    statChapters: 'פרקים', statTerms: 'מונחי מפתח מוסברים', statTypes: 'סוגי השקעות',
+    statFreeNum: 'חינם', statFreeDesc: 'תמיד ולנצח',
+    catLabel: 'קטגוריות', catTitle: 'בנה את הידע שלך,<br>צעד אחר צעד',
+    catSub: 'כל משקיע מתחיל איפשהו. בחר קטגוריה לחקירה, מהיסודות הבסיסיים ועד לאסטרטגיות מתקדמות.',
+    cat1Title: 'יסודות', cat1Desc: 'אוצר מילים בסיסי שכל משקיע חייב לדעת — מניות, שוק ההון, רווח והפסד.', cat1Lessons: '4 שיעורים',
+    cat2Title: 'השקעות חכמות', cat2Desc: 'הבן סיכון, פיזור סיכונים, וכיצד לבנות תיק השקעות חכם.', cat2Lessons: '3 שיעורים',
+    cat3Title: 'סוגי שוק', cat3Desc: 'קרנות סל, אג״ח, נדל״ן וקריפטו — כל הדרכים להשקיע.', cat3Lessons: '4 שיעורים',
+    cat4Title: 'השקעות מתקדמות', cat4Desc: 'ריבית דריבית, ניתוח טכני ופונדמנטלי, שווי שוק.', cat4Lessons: '4 שיעורים',
+    cat5Title: 'אסטרטגיות השקעה', cat5Desc: 'טיפים ואסטרטגיות מעשיים להשקיע בביטחון ובבהירות.', cat5Lessons: 'טיפים ומדריך',
+    tagBeginner: 'מתחילים', tagBeginner2: 'מתחילים', tagBeginner3: 'מתחילים', tagAdvanced: 'מתקדם', tagTips: 'טיפים',
+    lessonsLabel: 'פרקים / שיעורים', lessonsTitle: 'פתח שיעור',
+    lessonsSub: 'כל שיעור מסביר מושג מפתח אחד בצורה ברורה. התחל מההתחלה או קפוץ למה שמעניין אותך.',
+    ln1: 'מהן השקעות?', ln2: 'סיכון ופיזור סיכונים', ln3: 'סוגי השקעות', ln4: 'מושגים מתקדמים', ln5: 'טיפים ומדריך',
+    l1badge: 'מתחילים · פרק 1', l1title: 'מהן השקעות?', l1sub: 'אוצר המילים החיוני שכל משקיע צריך לדעת.',
+    l1p1: '<strong>השקעות</strong> פירושן הכנסת כסף למשהו בציפייה שיצמח עם הזמן. במקום להשאיר מזומנים בחוסר מעש, המשקיע מעביר אותם לעבוד בשווקים, עסקים או נכסים.',
+    l1p2: 'האדם שמשקיע כסף נקרא <strong>משקיע</strong>. כאשר משקיעים, מצפים לקבל <strong>תשואה</strong> — אחוז הרווח או ההכנסה שההשקעה מניבה.',
+    l1p3: 'השקעות מתבצעות לרוב דרך <strong>בורסה</strong>, שוק מאורגן שבו קונים ומוכרים סוחרים בנכסים פיננסיים. הבורסה המפורסמת ביותר היא NYSE בניו יורק.',
+    g1e: 'מניה', g1d: 'חלק קטן מבעלות על חברה. אם החברה צומחת, ערך המניה שלך עולה.',
+    g2e: 'תיק השקעות', g2d: 'אוסף ההשקעות המלא שלך — מניות, אג״ח, נדל״ן ועוד.',
+    g3e: 'רווח', g3d: 'כסף שהרווחת כאשר ההשקעה שלך גדלה בערכה או מניבה הכנסה.',
+    g4e: 'הפסד', g4d: 'כסף שאיבדת כאשר ההשקעה שלך ירדה מתחת למחיר ששילמת.',
+    l1tip: '<strong>טיפ למתחילים:</strong> אינך צריך אלפי שקלים כדי להתחיל להשקיע. פלטפורמות רבות מאפשרות להתחיל בסכום של 5–50 ₪ בלבד.',
+    l2badge: 'מתחילים · פרק 2', l2title: 'סיכון ופיזור סיכונים', l2sub: 'הבנת ניהול סיכונים בתיק ההשקעות שלך.',
+    l2p1: '<strong>סיכון</strong> הוא האפשרות שההשקעה שלך תאבד ערך. כל ההשקעות נושאות רמת סיכון כלשהי. התובנה המרכזית: <em>תשואה פוטנציאלית גבוהה יותר משמעה בדרך כלל סיכון גבוה יותר</em>.',
+    l2p2: '<strong>תנודתיות</strong> מודדת כמה מחיר הנכס עולה ויורד. השקעה תנודתית עשויה לזנק 20% בחודש אחד ולרדת 15% בחודש הבא. השקעות יציבות כמו אג״ח ממשלתי הן בעלות תנודתיות נמוכה.',
+    l2p3: 'הדרך החכמה ביותר לנהל סיכונים היא באמצעות <strong>פיזור סיכונים</strong> — פריסת הכסף שלך על פני סוגים שונים של השקעות, כך שאם אחת יורדת, אחרות עשויות להישאר יציבות.',
+    riskLabel: 'רמות סיכון לפי סוג השקעה',
+    riskBonds: 'אג״ח ממשלתי', riskLow: 'נמוך', riskETF: 'מניות חברות גדולות (קרן סל)', riskMed: 'בינוני',
+    riskStocks: 'מניות בודדות', riskMedHigh: 'בינוני-גבוה', riskCrypto: 'מטבעות דיגיטליים', riskHigh: 'גבוה מאוד',
+    l2tip: 'לעולם אל תשקיע כסף שאינך יכול להרשות לעצמך לאבד. שווקים עולים ויורדים. תיק מפוזר מגן עליך מפני השקעה גרועה אחת שתמחה את כל החיסכון שלך.',
+    l3badge: 'מתחילים · פרק 3', l3title: 'סוגי השקעות', l3sub: 'סוגי הנכסים העיקריים שכל משקיע צריך להבין.',
+    l3p1: 'ישנם ארבעה סוגי השקעות עיקריים. לכל אחד רמות סיכון, תשואות ומטרה שונות בתיק ההשקעות.',
+    g5d: 'קרן סל (Exchange Traded Fund) — סל מניות שניתן לקנות כמו מניה אחת. מצוין למתחילים כי מעניק פיזור מיידי.',
+    g6e: 'אג״ח', g6d: 'הלוואה שאתה נותן לחברה או לממשלה. הם משלמים לך ריבית לאורך זמן. סיכון נמוך יותר ממניות, תשואה נמוכה יותר.',
+    g7e: 'נדל״ן', g7d: 'בעלות על נכס להשכרה או לרווח מעליית מחירים. ניתן גם להשקיע דרך קרנות נדל״ן בבורסה.',
+    g8e: 'מטבעות דיגיטליים', g8d: 'מטבעות דיגיטליים כמו ביטקוין ואת׳ריום. סיכון ותנודתיות גבוהים מאוד, אך משקיעים מסוימים מקצים לכך חלק קטן.',
+    l3p2: 'תיק חכם לרוב <em>משלב</em> מספר סוגים. לדוגמה: 60% קרנות סל, 30% אג״ח, 10% נדל״ן. גישה קלאסית זו מאזנת צמיחה עם יציבות.',
+    l3tip: 'קרנות סל נחשבות נקודת הפתיחה הטובה ביותר למשקיעים מתחילים. הן זולות, מפוזרות ואינן דורשות מומחיות בבחירת מניות בודדות.',
+    l4badge: 'מתקדם · פרק 4', l4title: 'מושגים מתקדמים', l4sub: 'המושגים המבדילים בין משקיעים טובים למשקיעים מצוינים.',
+    l4p1: '<strong>ריבית דריבית</strong> היא הכוח החזק ביותר בהשקעות. אתה מרוויח ריבית על הכסף המקורי שלך — ואז ריבית על הריבית שכבר הרווחת. לאורך עשורים, זה יוצר צמיחה מעריכית.',
+    compoundTitle: 'דוגמת ריבית דריבית',
+    after10: 'אחרי 10 שנים', after20: 'אחרי 20 שנים', after40: 'אחרי 40 שנים',
+    on1000: 'על ₪1,000 @ 5%', on1000b: 'על ₪1,000 @ 5%', on1000c: 'על ₪1,000 @ 5%',
+    g9e: 'ניתוח טכני', g9d: 'לימוד גרפי מחירים ודפוסים לניבוי תנועות מחיר עתידיות. משמש סוחרים.',
+    g10e: 'ניתוח פונדמנטלי', g10d: 'הערכת הערך האמיתי של חברה — רווחים, חוב, צמיחה — כדי להחליט אם היא השקעה טובה.',
+    g11e: 'שווי שוק', g11d: 'הערך הכולל של מניות החברה. מחיר למניה × מספר מניות = שווי שוק.',
+    g12e: 'דיבידנד', g12d: 'מזומן המשולם לבעלי מניות מרווחי החברה. חלק מהמשקיעים מתקיימים מהכנסות דיבידנד.',
+    g13e: 'אינפלציה', g13d: 'עליית מחירי הסחורות לאורך זמן. כוח הקנייה של כספך יורד. השקעות עוזרות להתמודד עם האינפלציה.',
+    l5badge: 'טיפים ומדריך · פרק 5', l5title: 'אסטרטגיות השקעה', l5sub: 'עקרונות מעשיים שכל משקיע צריך לפעול לפיהם.',
+    l5p1: 'הנה העקרונות המנוסים שמנחים משקיעים מצליחים — בין אם אתה רק מתחיל ובין אם יש לך שנות ניסיון.',
+    tip1Title: 'התחל מוקדם', tip1Desc: 'הזמן הוא היתרון הגדול ביותר שלך. בגלל ריבית דריבית, ₪1,000 שהושקעו בגיל 25 שווים הרבה יותר מ-₪2,000 שהושקעו בגיל 45.',
+    tip2Title: 'פזר סיכונים', tip2Desc: 'לעולם אל תשים את כל הכסף שלך במניה אחת או בסקטור אחד. פרוש על פני נכסים, תעשיות ואזורים גיאוגרפיים שונים.',
+    tip3Title: 'השקע באופן קבוע', tip3Desc: 'השתמש בממוצע עלות הדולר — השקע סכום קבוע כל חודש ללא קשר למחיר. זה מפחית את השפעת התנודתיות בשוק.',
+    tip4Title: 'שמור על קור רוח', tip4Desc: 'שווקים יורדים. זה נורמלי. הטעות הגדולה ביותר של מתחילים היא מכירה בפאניקה בזמן ירידות. משקיעים לטווח ארוך שנשארים בשוק מנצחים.',
+    tip5Title: 'המשך ללמוד', tip5Desc: 'ככל שתבין יותר על השקעות, כך תקבל החלטות טובות יותר. המשך לקרוא, ללמוד ולשכלל את האסטרטגיה שלך לאורך זמן.',
+    l5tip: '<strong>ההשקעה הטובה ביותר שאתה יכול לעשות</strong> היא בחינוך הפיננסי שלך. הידע שאתה בונה כאן יצבור ריבית דריבית בדיוק כמו כספך.',
+    glossLabel: 'מילון מלא', glossTitle: 'כל מונח, מוסבר', glossSub: 'חפש כל מונח השקעה באנגלית או בעברית.',
+    ctaEyebrow: 'המסע שלך מתחיל עכשיו', ctaTitle: 'הבן מניות וכסף',
+    ctaDesc: 'חינוך פיננסי הוא הבסיס של כל משקיע מצליח. יש לך עכשיו את אוצר המילים. בנה עליו כל יום.',
+    ctaBtn1: 'התחל ללמוד ←', ctaBtn2: 'עיון במילון',
+    footerDesc: 'חינוך פיננסי למתחילים. למד להשקיע צעד אחר צעד — ממניות וקרנות סל ועד ריבית דריבית ואסטרטגיית שוק.',
+    footerCredit: 'נעשה באהבה ♥ על ידי <span style="color:var(--gold-light);font-weight:600">יהונתן עקיבא</span>',
+    footerLessons: 'שיעורים', footerCat: 'קטגוריות',
+    footerCopy: '© 2025 InvestIQ · חינוך פיננסי לכולם', footerTagline: 'בנה מיומנויות כסף חכמות',
   }
+};
 
-  function filterGlossary(query) {
-    const q = query.toLowerCase();
-    glossaryData.forEach((item, i) => {
-      const card = document.getElementById('gc-' + i);
-      const match = !q || item.eng.toLowerCase().includes(q) || item.heb.includes(q) || item.def.toLowerCase().includes(q) || item.cat.toLowerCase().includes(q);
-      card.classList.toggle('hidden', !match);
-    });
-  }
+// Glossary data
+const glossaryData = [
+  { heb: 'השקעות', eng: 'Investing', engDef: 'Putting money to work in assets or markets with the expectation of earning a return over time.', hebDef: 'הכנסת כסף לנכסים או שווקים בציפייה להניב תשואה לאורך זמן.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'משקיע', eng: 'Investor', engDef: 'A person who puts money into financial assets hoping to earn a profit.', hebDef: 'אדם שמכניס כסף לנכסים פיננסיים בתקווה להרוויח.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'מניה', eng: 'Stock / Share', engDef: 'A unit of ownership in a company. Stockholders share in the company\'s profits and losses.', hebDef: 'יחידת בעלות בחברה. בעלי מניות חולקים ברווחים ובהפסדים של החברה.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'בורסה', eng: 'Stock Market', engDef: 'An organized marketplace where stocks, bonds, and other securities are bought and sold.', hebDef: 'שוק מאורגן שבו מניות, אג״ח וניירות ערך אחרים נקנים ונמכרים.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'תיק השקעות', eng: 'Portfolio', engDef: 'The full collection of investments owned by an individual — stocks, bonds, real estate, crypto, etc.', hebDef: 'אוסף ההשקעות המלא של אדם — מניות, אג״ח, נדל״ן, קריפטו ועוד.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'רווח', eng: 'Profit', engDef: 'Money earned when an investment grows in value or generates income above its cost.', hebDef: 'כסף שהרווחת כאשר השקעה צמחה בערכה או הניבה הכנסה מעל העלות.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'הפסד', eng: 'Loss', engDef: 'Money lost when an investment falls below the price you paid for it.', hebDef: 'כסף שאיבדת כאשר השקעה ירדה מתחת למחיר ששילמת עבורה.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'תשואה', eng: 'Return', engDef: 'The percentage gain or income earned from an investment over a period.', hebDef: 'אחוז הרווח או ההכנסה שהושגו מהשקעה לאורך תקופה.', cat: 'Basics', catHe: 'יסודות' },
+  { heb: 'סיכון', eng: 'Risk', engDef: 'The possibility that an investment will lose value. Higher risk often comes with higher potential reward.', hebDef: 'האפשרות שהשקעה תאבד ערך. סיכון גבוה יותר מלווה לעתים קרובות בפוטנציאל תגמול גבוה יותר.', cat: 'Smart Investing', catHe: 'השקעות חכמות' },
+  { heb: 'פיזור סיכונים', eng: 'Diversification', engDef: 'Spreading investments across different asset types to reduce the impact of any single bad investment.', hebDef: 'פריסת השקעות על פני סוגי נכסים שונים להפחתת ההשפעה של השקעה גרועה אחת.', cat: 'Smart Investing', catHe: 'השקעות חכמות' },
+  { heb: 'תנודתיות', eng: 'Volatility', engDef: 'How much an asset\'s price swings up and down. High volatility = more risk and more potential gain.', hebDef: 'כמה מחיר הנכס עולה ויורד. תנודתיות גבוהה = יותר סיכון ויותר פוטנציאל רווח.', cat: 'Smart Investing', catHe: 'השקעות חכמות' },
+  { heb: 'קרן סל', eng: 'ETF', engDef: 'Exchange Traded Fund. A basket of stocks traded as one asset. Great for easy diversification.', hebDef: 'קרן סל. סל מניות הנסחר כנכס אחד. מצוין לפיזור סיכונים קל.', cat: 'Market Types', catHe: 'סוגי שוק' },
+  { heb: 'אג״ח', eng: 'Bonds', engDef: 'Loans to companies or governments that pay interest. Generally lower risk than stocks.', hebDef: 'הלוואות לחברות או ממשלות המשלמות ריבית. בדרך כלל סיכון נמוך יותר ממניות.', cat: 'Market Types', catHe: 'סוגי שוק' },
+  { heb: 'נדל״ן', eng: 'Real Estate', engDef: 'Property investment — physical buildings or via funds (REITs). Generates rental income or appreciation.', hebDef: 'השקעה בנכסים — מבנים פיזיים או דרך קרנות (REITs). מניבה הכנסת שכירות או עליית ערך.', cat: 'Market Types', catHe: 'סוגי שוק' },
+  { heb: 'מטבעות דיגיטליים', eng: 'Cryptocurrency', engDef: 'Digital assets like Bitcoin and Ethereum. Very high volatility and risk — speculative investment.', hebDef: 'נכסים דיגיטליים כמו ביטקוין ואת׳ריום. תנודתיות וסיכון גבוהים מאוד — השקעה ספקולטיבית.', cat: 'Market Types', catHe: 'סוגי שוק' },
+  { heb: 'ריבית דריבית', eng: 'Compound Interest', engDef: 'Earning interest on your interest. Over time, creates exponential growth — the most powerful force in investing.', hebDef: 'הרווחת ריבית על הריבית שלך. לאורך זמן יוצר צמיחה מעריכית — הכוח החזק ביותר בהשקעות.', cat: 'Advanced', catHe: 'מתקדם' },
+  { heb: 'ניתוח טכני', eng: 'Technical Analysis', engDef: 'Analyzing price charts and patterns to predict future market movements. Used primarily by traders.', hebDef: 'ניתוח גרפי מחירים ודפוסים לניבוי תנועות שוק עתידיות. משמש בעיקר סוחרים.', cat: 'Advanced', catHe: 'מתקדם' },
+  { heb: 'ניתוח פונדמנטלי', eng: 'Fundamental Analysis', engDef: 'Evaluating a company\'s true value by studying its financials, profits, growth, and business model.', hebDef: 'הערכת הערך האמיתי של חברה על ידי לימוד הכספים, הרווחים, הצמיחה ומודל העסקים שלה.', cat: 'Advanced', catHe: 'מתקדם' },
+  { heb: 'אינפלציה', eng: 'Inflation', engDef: 'The gradual rise in prices over time. Investing helps protect your money from losing purchasing power.', hebDef: 'עליית המחירים ההדרגתית לאורך זמן. השקעות עוזרות להגן על כספך מאיבוד כוח קנייה.', cat: 'Advanced', catHe: 'מתקדם' },
+  { heb: 'שווי שוק', eng: 'Market Cap', engDef: 'Total value of a company\'s shares (price × number of shares). Used to compare company sizes.', hebDef: 'הערך הכולל של מניות חברה (מחיר × מספר מניות). משמש להשוואת גודל חברות.', cat: 'Advanced', catHe: 'מתקדם' },
+  { heb: 'דיבידנד', eng: 'Dividend', engDef: 'Cash payments from a company to its shareholders, typically from its profits. Passive income for investors.', hebDef: 'תשלומי מזומן מחברה לבעלי המניות שלה, בדרך כלל מרווחיה. הכנסה פסיבית למשקיעים.', cat: 'Advanced', catHe: 'מתקדם' },
+];
 
-  // ---- Lesson navigation ----
-  function showLesson(index) {
-    document.querySelectorAll('.lesson-panel').forEach((p, i) => {
-      p.classList.toggle('active', i === index);
-    });
-    document.querySelectorAll('.lesson-nav-item').forEach((n, i) => {
-      n.classList.toggle('active', i === index);
-    });
-  }
+let currentLang = 'en';
 
-  function goToLesson(index) {
-    showLesson(index);
-    document.getElementById('lessons').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // Init
+function applyTranslations(lang) {
+  const t = T[lang];
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // Placeholder for search
+  const si = document.getElementById('glossarySearch');
+  if (si) si.placeholder = lang === 'he' ? 'חיפוש מונחים… לדוגמה: ETF, מניה, סיכון' : 'Search terms… e.g. ETF, מניה, risk';
+  // RTL
+  document.body.classList.toggle('rtl', lang === 'he');
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+  // Drawer direction handled by CSS
+  const drawer = document.getElementById('settingsDrawer');
+  if (lang === 'he') { drawer.style.right = 'auto'; } else { drawer.style.left = 'auto'; }
+  // Lang buttons
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('btnHe').classList.toggle('active', lang === 'he');
+  // Rebuild glossary
   buildGlossary();
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  applyTranslations(lang);
+}
+
+function buildGlossary() {
+  const lang = currentLang;
+  const grid = document.getElementById('glossaryGrid');
+  grid.innerHTML = glossaryData.map((item, i) => `
+    <div class="glos-card" id="gc-${i}">
+      <div class="heb-term">${item.heb}</div>
+      <div class="eng-term">${lang === 'he' ? item.heb + ' — ' + item.eng : item.eng}</div>
+      <div class="definition">${lang === 'he' ? item.hebDef : item.engDef}</div>
+      <div class="category-tag">${lang === 'he' ? item.catHe : item.cat}</div>
+    </div>
+  `).join('');
+}
+
+function filterGlossary(q) {
+  q = q.toLowerCase();
+  glossaryData.forEach((item, i) => {
+    const card = document.getElementById('gc-' + i);
+    const match = !q || item.eng.toLowerCase().includes(q) || item.heb.includes(q) ||
+      item.engDef.toLowerCase().includes(q) || item.hebDef.includes(q) ||
+      item.cat.toLowerCase().includes(q) || item.catHe.includes(q);
+    card.classList.toggle('hidden', !match);
+  });
+}
+
+function showLesson(index) {
+  document.querySelectorAll('.lesson-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+  document.querySelectorAll('.lesson-nav-item').forEach((n, i) => n.classList.toggle('active', i === index));
+}
+function goToLesson(index) { showLesson(index); scrollTo('lessons'); }
+function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+function openSettings() {
+  document.getElementById('settingsOverlay').classList.add('open');
+  document.getElementById('settingsDrawer').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settingsOverlay').classList.remove('open');
+  document.getElementById('settingsDrawer').classList.remove('open');
+}
+
+// Init
+buildGlossary();
 </script>
 </body>
 </html>
